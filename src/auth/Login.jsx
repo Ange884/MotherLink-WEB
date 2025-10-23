@@ -2,9 +2,9 @@ import React from "react";
 
 const Login = () => {
   return (
-    <div className="flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen px-6 py-6 md:px-12 md:py-8">
+    <div className="flex items-center justify-center bg-white from-blue-50 to-indigo-100 min-h-screen px-6 py-6 md:px-12 md:py-8">
       {/* Signup/Login Card */}
-      <div className="relative z-10 bg-white shadow-2xl rounded-3xl w-full max-w-5xl flex flex-col md:flex-row overflow-hidden h-[90vh] transform transition-all duration-500 hover:scale-[1.02]">
+      <div className="relative z-10 bg-white shadow-2xl rounded-3xl w-full max-w-4xl flex flex-col md:flex-row overflow-hidden h-[90vh] transform transition-all duration-500 hover:scale-[1.02]">
         
         {/* Left side blue background */}
         <div className="hidden md:flex w-1/2 bg-gradient-to-br from-[#0B2447] to-[#19376D] text-white items-center justify-center p-8 animate-fade-in-left">
@@ -32,7 +32,7 @@ const Login = () => {
                 <input
                   type="text"
                   placeholder="e.g., Nyabihu district hospital"
-                  className="w-full border border-gray-300 rounded-lg px-2 py-1 md:px-3 md:py-2 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#0B2447] focus:border-transparent transition-all duration-300 hover:border-[#0B2447] hover:shadow-md"
+                  className="w-full border border-gray-300 rounded-lg px-2 py-1 md:px-3 md:py-2 text-gray-400 lg:text-[14px] text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#0B2447] focus:border-transparent transition-all duration-300 hover:border-[#0B2447] hover:shadow-md"
                 />
               </div>
 
@@ -40,12 +40,11 @@ const Login = () => {
                 <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">
                   Type of Facility
                 </label>
-                <select className="w-full border border-gray-300 rounded-lg px-2 py-1 md:px-3 md:py-2 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#0B2447] focus:border-transparent transition-all duration-300 hover:border-[#0B2447] hover:shadow-md bg-white">
-                  <option>Select facility type</option>
-                  <option>Health Center</option>
-                  <option>District Hospital</option>
-                  <option>Clinic</option>
-                </select>
+                <input
+                  type="text"
+                  placeholder="e.g., Nyabihu district hospital"
+                  className="w-full border border-gray-300 rounded-lg px-2 py-1 md:px-3 md:py-2 text-gray-400 lg:text-[14px] text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#0B2447] focus:border-transparent transition-all duration-300 hover:border-[#0B2447] hover:shadow-md"
+                />
               </div>
 
               <div className="flex items-center justify-between animate-slide-up delay-250 mt-2">
