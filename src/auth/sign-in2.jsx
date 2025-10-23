@@ -32,35 +32,34 @@ const Signup = () => {
               <label className="block font-medium mb-1 text-xs md:text-sm text-gray-700">Phone number</label>
               <input
                 type="text"
-                placeholder="Enter value"
+                placeholder="+2507899..."
                 className="w-full border border-gray-300 rounded-lg px-2 py-1 md:px-3 md:py-2 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#0B2447] focus:border-transparent transition-all duration-300 hover:border-[#0B2447] hover:shadow-md"
               />
             </div>
 
             {/* Type of Facility */}
             <div className="animate-slide-up delay-300">
-              <label className="block font-medium mb-1 text-xs md:text-sm text-gray-700">Type of Facility</label>
-              <select className="w-full border border-gray-300 rounded-lg px-2 py-1 md:px-3 md:py-2 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#0B2447] focus:border-transparent transition-all duration-300 hover:border-[#0B2447] hover:shadow-md bg-white">
-                <option>Select facility type</option>
-                <option>Health Center</option>
-                <option>District Hospital</option>
-                <option>Clinic</option>
-              </select>
+              <label className="block font-medium mb-1 text-xs md:text-sm text-gray-700">Email Address</label>
+              <input
+                type="text"
+                placeholder="email@gmail.com"
+                className="w-full border border-gray-300 rounded-lg px-2 py-1 md:px-3 md:py-2 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#0B2447] focus:border-transparent transition-all duration-300 hover:border-[#0B2447] hover:shadow-md"
+              />
             </div>
 
             {/* District */}
             <div className="animate-slide-up delay-400">
-              <label className="block font-medium mb-1 text-xs md:text-sm text-gray-700">District</label>
+              <label className="block font-medium mb-1 text-xs md:text-sm text-gray-700">Position/Role</label>
               <input
                 type="text"
-                placeholder="Enter district"
+                placeholder="Enter ur role"
                 className="w-full border border-gray-300 rounded-lg px-2 py-1 md:px-3 md:py-2 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#0B2447] focus:border-transparent transition-all duration-300 hover:border-[#0B2447] hover:shadow-md"
               />
             </div>
 
             {/* Sector */}
             <div className="animate-slide-up delay-500">
-              <label className="block font-medium mb-1 text-xs md:text-sm text-gray-700">Sector</label>
+              <label className="block font-medium mb-1 text-xs md:text-sm text-gray-700">Create Password</label>
               <input
                 type="text"
                 placeholder="Enter sector"
@@ -70,7 +69,7 @@ const Signup = () => {
 
             {/* License Number */}
             <div className="animate-slide-up delay-600">
-              <label className="block font-medium mb-1 text-xs md:text-sm text-gray-700">License Number</label>
+              <label className="block font-medium mb-1 text-xs md:text-sm text-gray-700">Confirm Password</label>
               <input
                 type="text"
                 placeholder="e.g., ML-1924-1234"
@@ -79,14 +78,14 @@ const Signup = () => {
             </div>
 
             {/* Physical Address */}
-            <div className="md:col-span-2 animate-slide-up delay-700">
+            {/* <div className="md:col-span-2 animate-slide-up delay-700">
               <label className="block font-medium mb-1 text-xs md:text-sm text-gray-700">Physical Address</label>
               <input
                 type="text"
                 placeholder="e.g., Nyabihu main road near stadium"
                 className="w-full border border-gray-300 rounded-lg px-2 py-1 md:px-3 md:py-2 text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#0B2447] focus:border-transparent transition-all duration-300 hover:border-[#0B2447] hover:shadow-md"
               />
-            </div>
+            </div> */}
           </form>
 
           {/* Buttons at the bottom */}
