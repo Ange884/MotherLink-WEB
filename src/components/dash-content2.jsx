@@ -93,6 +93,34 @@ const initialUsers = [
     startDate: "05 - 10 - 2025",
     status: "Active",
   },
+   {
+    id: 3,
+    name: "Niyonzima Pierre",
+    gender: "Male",
+    phone: "+250 785 456 789",
+    location: "Kicukiro / Gahanga",
+    startDate: "15 - 10 - 2025",
+    status: "Active",
+  },
+  {
+    id: 4,
+    name: "Uwamahoro Aline",
+    gender: "Female",
+    phone: "+250 728 321 654",
+    location: "Nyarugenge / Nyakabanda",
+    startDate: "10 - 10 - 2025",
+    status: "Pending",
+  },
+  {
+    id: 2,
+    name: "Mukamana Jane",
+    gender: "Female",
+    phone: "+250 722 789 012",
+    location: "Gasabo / Remera",
+    startDate: "20 - 09 - 2025",
+    status: "Offline",
+  },
+
 ];
 
 export default function Dash2() {
@@ -266,7 +294,7 @@ export default function Dash2() {
 
         {/* Users Table */}
         <motion.div
-          className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-6 mx-6 -mt-4"
+          className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-6 mx-6 -mt-4 "
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
@@ -323,109 +351,104 @@ export default function Dash2() {
 
           {/* Table */}
           <div className="overflow-x-auto rounded-2xl border border-gray-200">
-            <table className="min-w-full text-sm">
-              <thead className="bg-gradient-to-r from-gray-50 to-gray-100">
-                <tr>
-                  {[
-                    { key: "name", label: "Full Name" },
-                    { key: "gender", label: "Gender" },
-                    { key: "phone", label: "Phone Number" },
-                    { key: "location", label: "Location" },
-                    { key: "startDate", label: "Start Date" },
-                    { key: "status", label: "Status" },
-                    { label: "Actions" },
-                  ].map((header, i) => (
-                    <th
-                      key={i}
-                      className={`p-4 font-semibold text-gray-700 text-left cursor-pointer hover:bg-gray-100 transition-colors ${
-                        header.key ? "flex items-center gap-1" : ""
-                      }`}
-                      onClick={() => header.key && handleSort(header.key)}
-                    >
-                      {header.label}
-                      {header.key && sortConfig.key === header.key && (
-                        <motion.div
-                          animate={{ rotate: sortConfig.direction === "asc" ? 0 : 180 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          <ChevronDown size={14} className="text-gray-400" />
-                        </motion.div>
-                      )}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {paginatedUsers.length === 0 ? (
-                  <motion.tr initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }}>
-                    <td colSpan={7} className="p-8 text-center text-gray-500">
-                      No users found matching your criteria.
-                    </td>
-                  </motion.tr>
-                ) : (
-                  paginatedUsers.map((user, i) => (
-                    <motion.tr
-                      key={user.id}
-                      className="border-b border-gray-100 hover:bg-blue-50/50 transition-all duration-200"
-                      variants={rowVariants}
-                      initial="hidden"
-                      animate="visible"
-                      custom={i}
-                    >
-                      <td className="p-4 font-medium text-gray-800">{user.name}</td>
-                      <td className="p-4">
-                        <span
-                          className={`px-2 py-1 rounded-full text-xs ${
-                            user.gender === "Female" ? "bg-pink-100 text-pink-700" : "bg-blue-100 text-blue-700"
-                          }`}
-                        >
-                          {user.gender}
-                        </span>
-                      </td>
-                      <td className="p-4 text-gray-600">{user.phone}</td>
-                      <td className="p-4 flex items-center text-gray-600">
-                        <MapPin size={14} className="mr-1 text-gray-400" /> {user.location}
-                      </td>
-                      <td className="p-4 text-gray-600">{user.startDate}</td>
-                      <td className="p-4">
-                        <span
-                          className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                            user.status === "Active"
-                              ? "bg-green-100 text-green-700 shadow-md"
-                              : user.status === "Offline"
-                              ? "bg-gray-100 text-gray-500"
-                              : "bg-yellow-100 text-yellow-700"
-                          }`}
-                        >
-                          {user.status}
-                        </span>
-                      </td>
-                      <td className="p-4 flex items-center gap-2">
-                        <button
-                          onClick={() => handleAction("view", user.id)}
-                          className="p-2 text-blue-500 hover:bg-blue-100 rounded-lg transition-colors"
-                        >
-                          <Eye size={16} />
-                        </button>
-                        <button
-                          onClick={() => handleAction("edit", user.id)}
-                          className="p-2 text-yellow-500 hover:bg-yellow-100 rounded-lg transition-colors"
-                        >
-                          <Edit size={16} />
-                        </button>
-                        <button
-                          onClick={() => handleAction("delete", user.id)}
-                          className="p-2 text-red-500 hover:bg-red-100 rounded-lg transition-colors"
-                        >
-                          <Trash size={16} />
-                        </button>
-                      </td>
-                    </motion.tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
+  <table className="min-w-full text-sm table-fixed">
+    <thead className="bg-gradient-to-r from-gray-50 to-gray-100">
+      <tr>
+        {[
+          { key: "name", label: "Full Name" },
+          { key: "gender", label: "Gender" },
+          { key: "phone", label: "Phone Number" },
+          { key: "location", label: "Location" },
+          { key: "startDate", label: "Start Date" },
+          { key: "status", label: "Status" },
+          { label: "Actions" },
+        ].map((header, i) => (
+          <th
+            key={i}
+            className={`p-3 font-semibold text-gray-700 text-left cursor-pointer hover:bg-gray-100 transition-colors`}
+            onClick={() => header.key && handleSort(header.key)}
+          >
+            <div className="flex items-center gap-1">
+              {header.label}
+              {header.key && sortConfig.key === header.key && (
+                <motion.div
+                  animate={{ rotate: sortConfig.direction === "asc" ? 0 : 180 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <ChevronDown size={14} className="text-gray-400" />
+                </motion.div>
+              )}
+            </div>
+          </th>
+        ))}
+      </tr>
+    </thead>
+
+    <tbody>
+      {paginatedUsers.length === 0 ? (
+        <tr>
+          <td colSpan={7} className="p-6 text-center text-gray-500">
+            No users found matching your criteria.
+          </td>
+        </tr>
+      ) : (
+        paginatedUsers.map((user, i) => (
+          <tr
+            key={user.id}
+            className="border-b border-gray-100 hover:bg-blue-50/50 transition-all duration-200"
+          >
+            <td className="p-3 font-medium text-gray-800">{user.name}</td>
+            <td className="p-3 text-center">
+              <span
+                className={`px-2 py-1 rounded-full text-xs ${
+                  user.gender === "Female" ? "bg-pink-100 text-pink-700" : "bg-blue-100 text-blue-700"
+                }`}
+              >
+                {user.gender}
+              </span>
+            </td>
+            <td className="p-3 text-gray-600">{user.phone}</td>
+            <td className="p-3 text-gray-600">{user.location}</td>
+            <td className="p-3 text-gray-600">{user.startDate}</td>
+            <td className="p-3 text-center">
+              <span
+                className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                  user.status === "Active"
+                    ? "bg-green-100 text-green-700 shadow-md"
+                    : user.status === "Offline"
+                    ? "bg-gray-100 text-gray-500"
+                    : "bg-yellow-100 text-yellow-700"
+                }`}
+              >
+                {user.status}
+              </span>
+            </td>
+            <td className="p-3 flex items-center justify-center gap-2">
+              <button
+                onClick={() => handleAction("view", user.id)}
+                className="p-2 text-blue-500 hover:bg-blue-100 rounded-lg transition-colors"
+              >
+                <Eye size={16} />
+              </button>
+              <button
+                onClick={() => handleAction("edit", user.id)}
+                className="p-2 text-yellow-500 hover:bg-yellow-100 rounded-lg transition-colors"
+              >
+                <Edit size={16} />
+              </button>
+              <button
+                onClick={() => handleAction("delete", user.id)}
+                className="p-2 text-red-500 hover:bg-red-100 rounded-lg transition-colors"
+              >
+                <Trash size={16} />
+              </button>
+            </td>
+          </tr>
+        ))
+      )}
+    </tbody>
+  </table>
+</div>
 
           {/* Pagination */}
           {filteredUsers.length > 0 && (

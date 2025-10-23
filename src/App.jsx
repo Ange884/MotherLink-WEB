@@ -4,6 +4,7 @@ import Signup1 from './auth/sign-in2';
 import Signup3 from './auth/sign-in3';
 import Login from './auth/Login';
 import Dashboard from './dashboards/dash1';
+import Dashboard2 from './dashboards/dash2';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/signup3" element={<Signup3 />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
+         <Route path="/dashboard2" element={<Dashboard2/>} />
       </Routes>
     </Router>
   );
