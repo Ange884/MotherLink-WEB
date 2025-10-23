@@ -3,6 +3,10 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from "react-route
 import Sidebar from "./components/Sidebar";
 import Topbar from "./components/Topbar";
 import DashboardContent from "./components/Dash-content";
+import Signup from "./auth/sign-in1";
+import Signup3 from "./auth/sign-in3";
+import Signup2 from "./auth/sign-in2";
+import Login from "./auth/Login";
 import Dash2 from "./components/dash-content2"; // User management
 import CHWManagement from "./pages/CHWManagement"; // Placeholder for CHW Management
 import Appointments from "./pages/Appointments"; // Placeholder for Appointments
@@ -41,7 +45,11 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Layout><DashboardContent /></Layout>} />
+         <Route path="/" element={<Layout><Signup /></Layout>} />
+         <Route path="/signup2" element={<Layout><Signup2 /></Layout>} />
+         <Route path="/signup3" element={<Layout><Signup3 /></Layout>} />
+         <Route path="/login" element={<Layout><Login /></Layout>} />
+        <Route path="/dashboard" element={<Layout><DashboardContent /></Layout>} />
         <Route path="/dashboard" element={<Layout><DashboardContent /></Layout>} />
         <Route path="/users" element={<Layout><Dash2 /></Layout>} />
         <Route path="/chw" element={<Layout><CHWManagement /></Layout>} />

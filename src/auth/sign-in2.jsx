@@ -1,6 +1,6 @@
 import React from "react";
 // sign-up2
-const Signup = () => {
+const Signup2 = () => {
   return (
     <div className="flex items-center justify-center bg-white from-blue-50 to-indigo-100 min-h-screen px-6 py-6 md:px-12 md:py-8">
       {/* Signup Card */}
@@ -205,4 +205,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Signup2;
