@@ -46,7 +46,7 @@ const statsData = [
   },
 ];
 
-// Users data
+// Users data (deduplicated and cleaned)
 const initialUsers = [
   {
     id: 1,
@@ -93,34 +93,6 @@ const initialUsers = [
     startDate: "05 - 10 - 2025",
     status: "Active",
   },
-   {
-    id: 3,
-    name: "Niyonzima Pierre",
-    gender: "Male",
-    phone: "+250 785 456 789",
-    location: "Kicukiro / Gahanga",
-    startDate: "15 - 10 - 2025",
-    status: "Active",
-  },
-  {
-    id: 4,
-    name: "Uwamahoro Aline",
-    gender: "Female",
-    phone: "+250 728 321 654",
-    location: "Nyarugenge / Nyakabanda",
-    startDate: "10 - 10 - 2025",
-    status: "Pending",
-  },
-  {
-    id: 2,
-    name: "Mukamana Jane",
-    gender: "Female",
-    phone: "+250 722 789 012",
-    location: "Gasabo / Remera",
-    startDate: "20 - 09 - 2025",
-    status: "Offline",
-  },
-
 ];
 
 export default function Dash2() {
@@ -145,6 +117,12 @@ export default function Dash2() {
     purple: "from-purple-400 via-purple-500 to-purple-600",
     red: "from-red-400 via-red-500 to-red-600",
     green: "from-green-400 via-green-500 to-green-600",
+  };
+  const borderMap = {
+    blue: "border-blue-100/50",
+    purple: "border-purple-100/50",
+    red: "border-red-100/50",
+    green: "border-green-100/50",
   };
 
   useEffect(() => {
@@ -243,7 +221,7 @@ export default function Dash2() {
           {statsData.map((stat, i) => (
             <motion.div
               key={i}
-              className={`bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg hover:shadow-2xl border text-center transition-all duration-300 group relative overflow-hidden`}
+              className={`bg-white/80 backdrop-blur-sm p-6 rounded-2xl shadow-lg hover:shadow-2xl ${borderMap[stat.color]} text-center transition-all duration-300 group relative overflow-hidden`}
               variants={itemVariants}
               whileHover={{ y: -8, scale: 1.03 }}
               whileTap={{ scale: 0.98 }}
@@ -294,7 +272,7 @@ export default function Dash2() {
 
         {/* Users Table */}
         <motion.div
-          className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-6 mx-6 -mt-4 "
+          className="w-full bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-6 -mt-4"
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.4 }}
@@ -350,110 +328,123 @@ export default function Dash2() {
           </div>
 
           {/* Table */}
-          <div className="overflow-x-auto rounded-2xl border border-gray-200">
-  <table className="min-w-full text-sm table-fixed">
-    <thead className="bg-gradient-to-r from-gray-50 to-gray-100">
-      <tr>
-        {[
-          { key: "name", label: "Full Name" },
-          { key: "gender", label: "Gender" },
-          { key: "phone", label: "Phone Number" },
-          { key: "location", label: "Location" },
-          { key: "startDate", label: "Start Date" },
-          { key: "status", label: "Status" },
-          { label: "Actions" },
-        ].map((header, i) => (
-          <th
-            key={i}
-            className={`p-3 font-semibold text-gray-700 text-left cursor-pointer hover:bg-gray-100 transition-colors`}
-            onClick={() => header.key && handleSort(header.key)}
-          >
-            <div className="flex items-center gap-1">
-              {header.label}
-              {header.key && sortConfig.key === header.key && (
-                <motion.div
-                  animate={{ rotate: sortConfig.direction === "asc" ? 0 : 180 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <ChevronDown size={14} className="text-gray-400" />
-                </motion.div>
-              )}
-            </div>
-          </th>
-        ))}
-      </tr>
-    </thead>
+          <div className="overflow-x-auto rounded-2xl border border-gray-200 w-full">
+            <table className="min-w-full text-sm table-fixed w-full">
+              <thead className="bg-gradient-to-r from-gray-50 to-gray-100">
+                <tr>
+                  {[
+                    { key: "name", label: "Full Name" },
+                    { key: "gender", label: "Gender" },
+                    { key: "phone", label: "Phone Number" },
+                    { key: "location", label: "Location" },
+                    { key: "startDate", label: "Start Date" },
+                    { key: "status", label: "Status" },
+                    { label: "Actions" },
+                  ].map((header, i) => (
+                    <th
+                      key={i}
+                      className={`p-3 font-semibold text-gray-700 text-left cursor-pointer hover:bg-gray-100 transition-colors ${header.key ? '' : 'w-24'}`}
+                      onClick={() => header.key && handleSort(header.key)}
+                    >
+                      <div className="flex items-center gap-1">
+                        {header.label}
+                        {header.key && sortConfig.key === header.key && (
+                          <motion.div
+                            animate={{ rotate: sortConfig.direction === "asc" ? 0 : 180 }}
+                            transition={{ duration: 0.2 }}
+                          >
+                            <ChevronDown size={14} className="text-gray-400" />
+                          </motion.div>
+                        )}
+                      </div>
+                    </th>
+                  ))}
+                </tr>
+              </thead>
 
-    <tbody>
-      {paginatedUsers.length === 0 ? (
-        <tr>
-          <td colSpan={7} className="p-6 text-center text-gray-500">
-            No users found matching your criteria.
-          </td>
-        </tr>
-      ) : (
-        paginatedUsers.map((user, i) => (
-          <tr
-            key={user.id}
-            className="border-b border-gray-100 hover:bg-blue-50/50 transition-all duration-200"
-          >
-            <td className="p-3 font-medium text-gray-800">{user.name}</td>
-            <td className="p-3 text-center">
-              <span
-                className={`px-2 py-1 rounded-full text-xs ${
-                  user.gender === "Female" ? "bg-pink-100 text-pink-700" : "bg-blue-100 text-blue-700"
-                }`}
-              >
-                {user.gender}
-              </span>
-            </td>
-            <td className="p-3 text-gray-600">{user.phone}</td>
-            <td className="p-3 text-gray-600">{user.location}</td>
-            <td className="p-3 text-gray-600">{user.startDate}</td>
-            <td className="p-3 text-center">
-              <span
-                className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                  user.status === "Active"
-                    ? "bg-green-100 text-green-700 shadow-md"
-                    : user.status === "Offline"
-                    ? "bg-gray-100 text-gray-500"
-                    : "bg-yellow-100 text-yellow-700"
-                }`}
-              >
-                {user.status}
-              </span>
-            </td>
-            <td className="p-3 flex items-center justify-center gap-2">
-              <button
-                onClick={() => handleAction("view", user.id)}
-                className="p-2 text-blue-500 hover:bg-blue-100 rounded-lg transition-colors"
-              >
-                <Eye size={16} />
-              </button>
-              <button
-                onClick={() => handleAction("edit", user.id)}
-                className="p-2 text-yellow-500 hover:bg-yellow-100 rounded-lg transition-colors"
-              >
-                <Edit size={16} />
-              </button>
-              <button
-                onClick={() => handleAction("delete", user.id)}
-                className="p-2 text-red-500 hover:bg-red-100 rounded-lg transition-colors"
-              >
-                <Trash size={16} />
-              </button>
-            </td>
-          </tr>
-        ))
-      )}
-    </tbody>
-  </table>
-</div>
+              <tbody>
+                {paginatedUsers.length === 0 ? (
+                  <tr>
+                    <td colSpan={7} className="p-6 text-center text-gray-500">
+                      No users found matching your criteria.
+                    </td>
+                  </tr>
+                ) : (
+                  paginatedUsers.map((user, i) => (
+                    <motion.tr
+                      key={user.id}
+                      className="border-b border-gray-100 hover:bg-blue-50/50 transition-all duration-200"
+                      variants={rowVariants}
+                      initial="hidden"
+                      animate="visible"
+                      custom={i}
+                    >
+                      <td className="p-3 font-medium text-gray-800">{user.name}</td>
+                      <td className="p-3 text-center">
+                        <span
+                          className={`px-2 py-1 rounded-full text-xs ${
+                            user.gender === "Female" ? "bg-pink-100 text-pink-700" : "bg-blue-100 text-blue-700"
+                          }`}
+                        >
+                          {user.gender}
+                        </span>
+                      </td>
+                      <td className="p-3 text-gray-600">{user.phone}</td>
+                      <td className="p-3 text-gray-600 flex items-center">
+                        <MapPin size={14} className="mr-2 text-gray-400 flex-shrink-0" />
+                        <span className="truncate">{user.location}</span>
+                      </td>
+                      <td className="p-3 text-gray-600">{user.startDate}</td>
+                      <td className="p-3 text-center">
+                        <span
+                          className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                            user.status === "Active"
+                              ? "bg-green-100 text-green-700 shadow-md"
+                              : user.status === "Offline"
+                              ? "bg-gray-100 text-gray-500"
+                              : "bg-yellow-100 text-yellow-700"
+                          }`}
+                        >
+                          {user.status}
+                        </span>
+                      </td>
+                      <td className="p-3 flex items-center justify-center gap-2">
+                        <motion.button
+                          onClick={() => handleAction("view", user.id)}
+                          className="p-2 text-blue-500 hover:bg-blue-100 rounded-lg transition-colors"
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                        >
+                          <Eye size={16} />
+                        </motion.button>
+                        <motion.button
+                          onClick={() => handleAction("edit", user.id)}
+                          className="p-2 text-yellow-500 hover:bg-yellow-100 rounded-lg transition-colors"
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                        >
+                          <Edit size={16} />
+                        </motion.button>
+                        <motion.button
+                          onClick={() => handleAction("delete", user.id)}
+                          className="p-2 text-red-500 hover:bg-red-100 rounded-lg transition-colors"
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                        >
+                          <Trash size={16} />
+                        </motion.button>
+                      </td>
+                    </motion.tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
 
           {/* Pagination */}
           {filteredUsers.length > 0 && (
             <motion.div
-              className="flex flex-col sm:flex-row justify-between items-center mt-4 gap-2"
+              className="flex flex-col sm:flex-row justify-between items-center mt-6 gap-4"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.6 }}
@@ -462,18 +453,38 @@ export default function Dash2() {
                 Showing {Math.min((currentPage - 1) * usersPerPage + 1, filteredUsers.length)}-
                 {Math.min(currentPage * usersPerPage, filteredUsers.length)} of {filteredUsers.length}
               </p>
-              <div className="flex gap-2">
+              <div className="flex gap-1">
+                <motion.button
+                  onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
+                  disabled={currentPage === 1}
+                  className="px-3 py-1 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-all"
+                  whileHover={{ scale: currentPage === 1 ? 1 : 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Prev
+                </motion.button>
                 {Array.from({ length: totalPages }, (_, i) => (
-                  <button
+                  <motion.button
                     key={i}
                     onClick={() => setCurrentPage(i + 1)}
                     className={`px-3 py-1 rounded-lg text-sm font-medium ${
                       currentPage === i + 1 ? "bg-blue-500 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                     } transition-colors`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                   >
                     {i + 1}
-                  </button>
+                  </motion.button>
                 ))}
+                <motion.button
+                  onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
+                  disabled={currentPage === totalPages}
+                  className="px-3 py-1 border border-gray-300 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-50 transition-all"
+                  whileHover={{ scale: currentPage === totalPages ? 1 : 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Next
+                </motion.button>
               </div>
             </motion.div>
           )}
