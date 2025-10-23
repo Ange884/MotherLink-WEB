@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Home, Users, Bell, BarChart2, Settings, LogOut, ChevronDown,Ambulance,
+import { Home, Users, Bell, BarChart2, Settings, LogOut, ChevronDown, Ambulance,
   CalendarCheck2,
   UserCog, } from "lucide-react";
 import { useState } from "react";
@@ -13,7 +13,6 @@ const menuItems = [
   { icon: <Bell size={18} />, label: "Emergency & Alerts", active: false },
   { icon: <BarChart2 size={18} />, label: "Data analytics", active: false },
   { icon: <Settings size={18} />, label: "Settings", active: false },
-
 ];
 
 const profileOptions = [
@@ -26,7 +25,7 @@ export default function Sidebar() {
 
   return (
     <motion.div
-      className="bg-gradient-to-b from-[#0B2447] to-[#1a365d] text-white w-64 min-h-screen flex flex-col justify-between shadow-2xl shadow-blue-900/20 relative overflow-hidden"
+      className="bg-gradient-to-b from-[#0B2447] to-[#1a365d] text-white w-64 h-screen flex flex-col justify-between shadow-2xl shadow-blue-900/20 relative"
       initial={{ x: -300, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
@@ -34,10 +33,10 @@ export default function Sidebar() {
       {/* Background subtle animation */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.1),transparent_50%)] animate-pulse-slow"></div>
 
-      <div className="relative z-10 flex-1">
-        {/* Logo */}
+      <div className="relative z-10 flex flex-col h-full">
+        {/* Logo - Sticky at top */}
         <motion.div
-          className="p-6 text-2xl font-bold border-b border-gray-700/50 flex items-center space-x-2"
+          className="p-6 text-2xl font-bold border-b border-gray-700/50 flex items-center space-x-2 sticky top-0 bg-[#0B2447]/90 backdrop-blur-sm z-20"
           initial={{ y: -20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -52,49 +51,51 @@ export default function Sidebar() {
           Mother Link
         </motion.div>
 
-        {/* Menu */}
-        <ul className="mt-8 space-y-1 px-4">
-          {menuItems.map((item, i) => (
-            <motion.li
-              key={i}
-              className={`flex items-center space-x-3 px-3 py-3 rounded-xl cursor-pointer transition-all relative group ${
-                item.active
-                  ? "bg-blue-600/20 border border-blue-500/30 text-blue-200"
-                  : "hover:bg-blue-600/10 hover:border-blue-500/20 border border-transparent"
-              }`}
-              initial={{ x: -20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
-              whileHover={{ 
-                scale: 1.02, 
-                backgroundColor: "#2563eb20",
-                x: item.active ? 0 : 5 
-              }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <motion.div
-                className="flex-shrink-0"
-                whileHover={{ scale: 1.1 }}
-                transition={{ type: "spring", stiffness: 400, damping: 17 }}
+        {/* Scrollable Menu */}
+        <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-blue-500/50 scrollbar-track-transparent px-4 py-4">
+          <ul className="space-y-1">
+            {menuItems.map((item, i) => (
+              <motion.li
+                key={i}
+                className={`flex items-center space-x-3 px-3 py-3 rounded-xl cursor-pointer transition-all relative group ${
+                  item.active
+                    ? "bg-blue-600/20 border border-blue-500/30 text-blue-200"
+                    : "hover:bg-blue-600/10 hover:border-blue-500/20 border border-transparent"
+                }`}
+                initial={{ x: -20, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
+                whileHover={{ 
+                  scale: 1.02, 
+                  backgroundColor: "#2563eb20",
+                  x: item.active ? 0 : 5 
+                }}
+                whileTap={{ scale: 0.98 }}
               >
-                {item.icon}
-              </motion.div>
-              <span className="font-medium">{item.label}</span>
-              {item.active && (
                 <motion.div
-                  className="absolute right-3 w-1 h-6 bg-blue-400 rounded-full"
-                  layoutId="activeIndicator"
-                />
-              )}
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-            </motion.li>
-          ))}
-        </ul>
+                  className="flex-shrink-0"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+                >
+                  {item.icon}
+                </motion.div>
+                <span className="font-medium">{item.label}</span>
+                {item.active && (
+                  <motion.div
+                    className="absolute right-3 w-1 h-6 bg-blue-400 rounded-full"
+                    layoutId="activeIndicator"
+                  />
+                )}
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              </motion.li>
+            ))}
+          </ul>
+        </div>
       </div>
 
-      {/* Profile Section */}
+      {/* Profile Section - Sticky at bottom */}
       <motion.div 
-        className="p-4 border-t border-gray-700/50 relative z-10"
+        className="p-4 border-t border-gray-700/50 relative z-10 sticky bottom-0 bg-[#0B2447]/90 backdrop-blur-sm"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.5 }}
@@ -155,4 +156,3 @@ export default function Sidebar() {
     </motion.div>
   );
 }
-

@@ -1,8 +1,22 @@
 import { motion } from "framer-motion";
+import { useLocation } from "react-router-dom";
 import { Search, Bell, User, Menu } from "lucide-react";
 import { useState } from "react";
 
+const pageTitles = {
+  "/dashboard": "Dashboard",
+  "/users": "User Management",
+  "/chw": "CHW Management",
+  "/appointments": "Appointments",
+  "/ambulance": "Ambulance Tracker",
+  "/emergencies": "Emergency & Alerts",
+  "/analytics": "Data Analytics",
+  "/settings": "Settings",
+};
+
 export default function Topbar({ onMenuToggle }) {
+  const location = useLocation();
+  const currentTitle = pageTitles[location.pathname] || "Dashboard";
   const [searchValue, setSearchValue] = useState("");
   const [isFocused, setIsFocused] = useState(false);
 
@@ -16,18 +30,28 @@ export default function Topbar({ onMenuToggle }) {
       {/* Subtle background shine */}
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform -translate-x-full animate-shine" />
 
-      {/* Left: Menu Toggle (Optional) */}
-      <motion.button
-        onClick={onMenuToggle}
-        className="p-2 text-gray-600 hover:text-[#0B2447] rounded-lg hover:bg-gray-100 transition-all"
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.95 }}
-        initial={{ x: -20, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 0.3, delay: 0.1 }}
-      >
-        <Menu size={20} />
-      </motion.button>
+      {/* Left: Menu Toggle & Page Title */}
+      <div className="flex items-center space-x-4 min-w-0">
+        <motion.button
+          onClick={onMenuToggle}
+          className="p-2 text-gray-600 hover:text-[#0B2447] rounded-lg hover:bg-gray-100 transition-all"
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+          initial={{ x: -20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.1 }}
+        >
+          <Menu size={20} />
+        </motion.button>
+        <motion.h1
+          className="text-xl font-bold text-[#0B2447] truncate"
+          initial={{ x: -20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.2 }}
+        >
+          {currentTitle}
+        </motion.h1>
+      </div>
 
       {/* Center: Search Bar */}
       <motion.div
