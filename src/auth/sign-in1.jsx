@@ -2,7 +2,7 @@ import React from "react";
 
 const Signup = () => {
   return (
-    <div className="flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen px-6 py-6 md:px-12 md:py-8">
+    <div className="flex items-center justify-center bg-white from-blue-50 to-indigo-100 min-h-screen px-6 py-6 md:px-12 md:py-8">
       {/* Signup Card */}
       <div className="relative z-10 bg-white shadow-2xl rounded-3xl w-full max-w-4xl flex flex-col md:flex-row overflow-hidden transform transition-all duration-500 hover:scale-[1.02]">
         

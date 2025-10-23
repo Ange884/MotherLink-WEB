@@ -1,2 +1,5 @@
 @import "tailwindcss";
+*{
+  font-family: 'poppins',sans-serif;
+}
 
