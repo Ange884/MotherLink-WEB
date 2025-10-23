@@ -1,13 +1,19 @@
 import { motion } from "framer-motion";
-import { Home, Users, Bell, BarChart2, Settings, LogOut, ChevronDown } from "lucide-react";
+import { Home, Users, Bell, BarChart2, Settings, LogOut, ChevronDown,Ambulance,
+  CalendarCheck2,
+  UserCog, } from "lucide-react";
 import { useState } from "react";
 
 const menuItems = [
   { icon: <Home size={18} />, label: "Dashboard", active: true },
   { icon: <Users size={18} />, label: "User management", active: false },
+  { icon: <UserCog size={18} />, label: "CHW Management" },
+  { icon: <CalendarCheck2 size={18} />, label: "Appointments" },
+  { icon: <Ambulance size={18} />, label: "Ambulance Tracker" },
   { icon: <Bell size={18} />, label: "Emergency & Alerts", active: false },
   { icon: <BarChart2 size={18} />, label: "Data analytics", active: false },
   { icon: <Settings size={18} />, label: "Settings", active: false },
+
 ];
 
 const profileOptions = [
@@ -149,3 +155,4 @@ export default function Sidebar() {
     </motion.div>
   );
 }
+
