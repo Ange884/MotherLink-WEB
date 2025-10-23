@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Search, Bell, User, Menu } from "lucide-react";
+import { useState } from "react";
 
 export default function Topbar({ onMenuToggle }) {
   const [searchValue, setSearchValue] = useState("");
@@ -127,11 +128,11 @@ export default function Topbar({ onMenuToggle }) {
           transition={{ duration: 0.3, delay: 0.3 }}
         >
           <img
-            src="https://via.placeholder.com/32/4F46E5/FFFFFF?text=BU"
+            src="/Amanda.JPG"
             alt="User"
             className="w-8 h-8 rounded-full ring-2 ring-gray-200"
           />
-          <span className="text-sm font-medium text-gray-700 hidden sm:inline">Bonnie</span>
+          <span className="text-sm font-medium text-gray-700 hidden sm:inline">Ange</span>
           <User size={16} className="text-gray-500" />
         </motion.div>
       </div>

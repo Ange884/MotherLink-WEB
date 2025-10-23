@@ -20,7 +20,7 @@ export default function Sidebar() {
 
   return (
     <motion.div
-      className="bg-gradient-to-b from-[#0B2447] to-[#1a365d] text-white w-64 h-screen flex flex-col justify-between shadow-2xl shadow-blue-900/20 relative overflow-hidden"
+      className="bg-gradient-to-b from-[#0B2447] to-[#1a365d] text-white w-64 min-h-screen flex flex-col justify-between shadow-2xl shadow-blue-900/20 relative overflow-hidden"
       initial={{ x: -300, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
@@ -98,7 +98,7 @@ export default function Sidebar() {
           onClick={() => setIsProfileOpen(!isProfileOpen)}
         >
           <motion.img
-            src="https://via.placeholder.com/40/4F46E5/FFFFFF?text=BU"
+            src="/Ange.jpeg"
             alt="Profile"
             className="w-10 h-10 rounded-full ring-2 ring-blue-500/30 group-hover:ring-blue-400/50 transition-all"
             whileHover={{ scale: 1.05, rotate: 5 }}
@@ -113,7 +113,7 @@ export default function Sidebar() {
             >
               Welcome back
             </motion.p>
-            <p className="text-xs text-gray-400 truncate">Bonnie Umurerwa</p>
+            <p className="text-xs text-gray-400 truncate">Nziza Ange</p>
           </div>
           <motion.div
             animate={{ rotate: isProfileOpen ? 180 : 0 }}
