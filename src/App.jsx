@@ -45,11 +45,11 @@ export default function App() {
   return (
     <Router>
       <Routes>
-         <Route path="/" element={<Layout><Signup /></Layout>} />
-         <Route path="/signup2" element={<Layout><Signup2 /></Layout>} />
-         <Route path="/signup3" element={<Layout><Signup3 /></Layout>} />
-         <Route path="/login" element={<Layout><Login /></Layout>} />
-        <Route path="/dashboard" element={<Layout><DashboardContent /></Layout>} />
+        <Route path="/" element={<Signup/>} />
+        <Route path="/signup2" element={<Signup2/>} />
+        <Route path="/signup3" element={<Signup3/>} />
+        <Route path="/login" element={<Login/>} />
+        <Route path="/dashboard2" element={<Layout><Dash2 /></Layout>} />
         <Route path="/dashboard" element={<Layout><DashboardContent /></Layout>} />
         <Route path="/users" element={<Layout><Dash2 /></Layout>} />
         <Route path="/chw" element={<Layout><CHWManagement /></Layout>} />
