@@ -6,6 +6,7 @@ import DashboardContent from "./components/Dash-content";
 import Signup from "./auth/sign-in1";
 import Signup3 from "./auth/sign-in3";
 import Signup2 from "./auth/sign-in2";
+import Dashboard3 from "./dashboards/dash3";
 import Login from "./auth/Login";
 import Dash2 from "./components/dash-content2"; // User management
 import CHWManagement from "./pages/CHWManagement"; // Placeholder for CHW Management
@@ -49,6 +50,7 @@ export default function App() {
         <Route path="/signup2" element={<Signup2/>} />
         <Route path="/signup3" element={<Signup3/>} />
         <Route path="/login" element={<Login/>} />
+        <Route path="/dashboard3" element={<Dashboard3/>} />
         <Route path="/dashboard2" element={<Layout><Dash2 /></Layout>} />
         <Route path="/dashboard" element={<Layout><DashboardContent /></Layout>} />
         <Route path="/users" element={<Layout><Dash2 /></Layout>} />

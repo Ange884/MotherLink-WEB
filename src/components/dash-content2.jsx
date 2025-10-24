@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
 
+
 // Stats data
 const statsData = [
   {
@@ -95,7 +96,7 @@ const initialUsers = [
   },
 ];
 
-export default function Dash2() {
+export default function Dash2({openModal}) {
   const [animatedValues, setAnimatedValues] = useState(statsData.map(() => 0));
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
@@ -410,13 +411,27 @@ export default function Dash2() {
                       </td>
                       <td className="p-3 flex items-center justify-center gap-2">
                         <motion.button
-                          onClick={() => handleAction("view", user.id)}
-                          className="p-2 text-blue-500 hover:bg-blue-100 rounded-lg transition-colors"
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                        >
-                          <Eye size={16} />
-                        </motion.button>
+  onClick={() => openModal({
+    id: user.id,
+    name: user.name,
+    gender: user.gender,
+    email: user.email,
+    phone: user.phone,
+    clinicId: user.clinicId,
+    village: user.village,
+    district: user.district,
+    sector: user.sector,
+    province: user.province,
+    photo: user.photo,
+  })}
+  className="p-2 text-blue-500 hover:bg-blue-100 rounded-lg transition-colors"
+  whileHover={{ scale: 1.1 }}
+  whileTap={{ scale: 0.9 }}
+>
+  <Eye size={16} />
+</motion.button>
+
+
                         <motion.button
                           onClick={() => handleAction("edit", user.id)}
                           className="p-2 text-yellow-500 hover:bg-yellow-100 rounded-lg transition-colors"

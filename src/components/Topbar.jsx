@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { useLocation } from "react-router-dom";
-import { Search, Bell, User, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import { useState } from "react";
+import { ChatBubbleLeftRightIcon, PlusIcon, BellIcon } from '@heroicons/react/24/outline';
 
 const pageTitles = {
   "/dashboard": "Dashboard",
@@ -17,24 +18,21 @@ const pageTitles = {
 export default function Topbar({ onMenuToggle }) {
   const location = useLocation();
   const currentTitle = pageTitles[location.pathname] || "Dashboard";
-  const [searchValue, setSearchValue] = useState("");
-  const [isFocused, setIsFocused] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // For responsive menu toggle
 
   return (
     <motion.div
-      className="flex justify-between items-center bg-gradient-to-r from-white to-gray-50/50 shadow-lg px-6 py-4 rounded-xl border border-gray-200/50 backdrop-blur-sm relative overflow-hidden"
+      className="flex justify-between items-center bg-white shadow-sm border-b border-gray-200 px-6 py-4"
       initial={{ y: -60, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
     >
-      {/* Subtle background shine */}
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 transform -translate-x-full animate-shine" />
-
-      {/* Left: Menu Toggle & Page Title */}
-      <div className="flex items-center space-x-4 min-w-0">
+      {/* Left: Menu Toggle & Page Title + Subtitle */}
+      <div className="flex items-center space-x-4 min-w-0 flex-1">
+        {/* Menu Toggle - Hidden on larger screens */}
         <motion.button
-          onClick={onMenuToggle}
-          className="p-2 text-gray-600 hover:text-[#0B2447] rounded-lg hover:bg-gray-100 transition-all"
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="p-2 text-gray-600 hover:text-[#0B2447] rounded-lg hover:bg-gray-100 transition-all md:hidden"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           initial={{ x: -20, opacity: 0 }}
@@ -43,123 +41,101 @@ export default function Topbar({ onMenuToggle }) {
         >
           <Menu size={20} />
         </motion.button>
-        <motion.h1
-          className="text-xl font-bold text-[#0B2447] truncate"
-          initial={{ x: -20, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.3, delay: 0.2 }}
-        >
-          {currentTitle}
-        </motion.h1>
+        
+        {/* Title and Subtitle - Stacked for better spacing */}
+        <div className="flex flex-col space-y-0.5 min-w-0 flex-1">
+          <motion.h1
+            className="text-2xl font-bold text-gray-900 truncate"
+            initial={{ x: -20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
+          >
+            {currentTitle}
+          </motion.h1>
+          <motion.p
+            className="text-sm text-gray-600 truncate"
+            initial={{ x: -20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.25 }}
+          >
+            View all analytics and manage the system
+          </motion.p>
+        </div>
       </div>
 
-      {/* Center: Search Bar */}
-      <motion.div
-        className="flex items-center w-full max-w-2xl mx-4 relative group"
-        initial={{ scale: 0.95, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ duration: 0.4, delay: 0.2 }}
-      >
-        <div className="relative flex w-full">
-          <input
-            type="text"
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            placeholder="Search everything..."
-            className={`w-full pr-12 pl-4 py-3 border-2 rounded-xl focus:outline-none transition-all duration-300 text-gray-700 placeholder-gray-500 font-medium ${
-              isFocused
-                ? "border-[#0B2447] shadow-md shadow-blue-200/50 bg-white"
-                : "border-gray-200 hover:border-gray-300"
-            }`}
-            onFocus={() => setIsFocused(true)}
-            onBlur={() => setIsFocused(false)}
-          />
-          <motion.div
-            className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isFocused ? 1 : 0 }}
-            transition={{ duration: 0.2 }}
-          >
-            <Search size={18} className="text-gray-400" />
-          </motion.div>
-          <motion.button
-            className={`absolute inset-y-0 right-0 flex items-center px-4 rounded-r-xl transition-all duration-300 group-hover:scale-105 ${
-              searchValue.length > 0
-                ? "bg-[#0B2447] text-white shadow-lg shadow-blue-900/20"
-                : "bg-gray-100 text-gray-500 hover:bg-gray-200"
-            }`}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => {
-              // Handle search logic here
-              if (searchValue.trim()) {
-                console.log("Searching for:", searchValue);
-              }
-            }}
-          >
-            <Search size={18} />
-          </motion.button>
-        </div>
-
-        {/* Search suggestions placeholder (extra feature) */}
-        {isFocused && searchValue.length > 2 && (
-          <motion.div
-            className="absolute top-full left-0 w-full mt-2 p-3 bg-white rounded-xl shadow-xl border border-gray-200 z-10"
-            initial={{ opacity: 0, y: -10, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: -10, scale: 0.95 }}
-            transition={{ duration: 0.2 }}
-          >
-            <p className="text-xs text-gray-500">Suggestions for "{searchValue}"</p>
-            <ul className="mt-1 space-y-1">
-              {["Dashboard reports", "User alerts", "Analytics overview"].map((suggestion, i) => (
-                <li key={i} className="text-sm text-gray-700 hover:bg-gray-100 p-2 rounded cursor-pointer transition-colors">
-                  {suggestion}
-                </li>
-              ))}
-            </ul>
-          </motion.div>
-        )}
-      </motion.div>
-
-      {/* Right: Notifications & User */}
-      <div className="flex items-center space-x-4">
+      {/* Right: Action Buttons - Responsive stacking on mobile */}
+      <div className="flex items-center space-x-3 flex-shrink-0">
+        {/* Message CHW Button */}
         <motion.button
-          className="relative p-2 text-gray-600 hover:text-red-500 rounded-lg hover:bg-gray-100 transition-all"
-          whileHover={{ scale: 1.1, rotate: 5 }}
-          whileTap={{ scale: 0.95 }}
-          initial={{ x: 20, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.3, delay: 0.3 }}
-        >
-          <Bell size={20} />
-          <motion.span
-            className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full text-xs flex items-center justify-center text-white"
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ delay: 0.4, type: "spring" }}
-          >
-            3
-          </motion.span>
-        </motion.button>
-
-        <motion.div
-          className="flex items-center space-x-2 p-2 hover:bg-gray-100 rounded-lg cursor-pointer transition-all"
+          className="flex items-center space-x-2 px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors border border-gray-200 hidden md:flex"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           initial={{ x: 20, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 0.3, delay: 0.3 }}
         >
-          <img
-            src="/Amanda.JPG"
-            alt="User"
-            className="w-8 h-8 rounded-full ring-2 ring-gray-200"
-          />
-          <span className="text-sm font-medium text-gray-700 hidden sm:inline">Ange</span>
-          <User size={16} className="text-gray-500" />
-        </motion.div>
+          <ChatBubbleLeftRightIcon className="w-4 h-4" />
+          <span>Message CHW</span>
+        </motion.button>
+
+        {/* Add CHW Button */}
+        <motion.button
+          className="flex items-center space-x-2 px-4 py-2 text-sm font-semibold text-white bg-blue-600 hover:bg-gray-900 rounded-md transition-colors md:ml-2"
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          initial={{ x: 20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.35 }}
+        >
+          <PlusIcon className="w-4 h-4" />
+          <span>Add CHW</span>
+        </motion.button>
+
+        {/* Notifications Icon - Always visible */}
+        <motion.button
+          className="p-2 text-gray-500 hover:text-gray-700 rounded-full hover:bg-gray-100 transition-colors relative"
+          whileHover={{ scale: 1.1, rotate: 5 }}
+          whileTap={{ scale: 0.95 }}
+          initial={{ x: 20, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.3, delay: 0.4 }}
+        >
+          <BellIcon className="w-5 h-5" />
+          {/* Optional badge */}
+          <motion.span
+            className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full text-xs flex items-center justify-center text-white"
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: 0.5, type: "spring" }}
+          >
+            3
+          </motion.span>
+        </motion.button>
       </div>
+
+      {/* Mobile Menu Overlay - If toggled */}
+      {isMobileMenuOpen && (
+        <motion.div
+          className="fixed top-0 left-0 w-full h-full bg-black/50 z-50 md:hidden"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={() => setIsMobileMenuOpen(false)}
+        >
+          {/* Mobile actions - Customize as needed */}
+          <motion.div
+            className="bg-white h-full w-64 p-4"
+            initial={{ x: -300 }}
+            animate={{ x: 0 }}
+            exit={{ x: -300 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          >
+            {/* Add mobile-specific actions here */}
+            <button className="w-full text-left py-2">Message CHW</button>
+            <button className="w-full text-left py-2">Add CHW</button>
+          </motion.div>
+        </motion.div>
+      )}
     </motion.div>
   );
 }
