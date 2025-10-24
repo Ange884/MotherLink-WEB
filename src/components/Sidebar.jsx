@@ -1,18 +1,19 @@
 import { motion } from "framer-motion";
-import { Home, Users, Bell, BarChart2, Settings, LogOut, ChevronDown, Ambulance,
+import { Home, Users, Bell, BarChart2, Settings, LogOut, ChevronDown, Activity,
   CalendarCheck2,
-  UserCog, } from "lucide-react";
+  UserCog, AlertTriangle } from "lucide-react";
 import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const menuItems = [
-  { icon: <Home size={18} />, label: "Dashboard", active: true },
-  { icon: <Users size={18} />, label: "User management", active: false },
-  { icon: <UserCog size={18} />, label: "CHW Management" },
-  { icon: <CalendarCheck2 size={18} />, label: "Appointments" },
-  { icon: <Ambulance size={18} />, label: "Ambulance Tracker" },
-  { icon: <Bell size={18} />, label: "Emergency & Alerts", active: false },
-  { icon: <BarChart2 size={18} />, label: "Data analytics", active: false },
-  { icon: <Settings size={18} />, label: "Settings", active: false },
+  { icon: <Home size={18} />, label: "Dashboard", path: "/dashboard" },
+  { icon: <Users size={18} />, label: "User management", path: "/users" },
+  { icon: <UserCog size={18} />, label: "CHW Management", path: "/chw" },
+  { icon: <CalendarCheck2 size={18} />, label: "Appointments", path: "/appointments" },
+  { icon: <Activity size={18} />, label: "Ambulance Tracker", path: "/ambulance" },
+  { icon: <Bell size={18} />, label: "Emergency & Alerts", path: "/emergencies" },
+  { icon: <BarChart2 size={18} />, label: "Data analytics", path: "/analytics" },
+  { icon: <Settings size={18} />, label: "Settings", path: "/settings" },
 ];
 
 const profileOptions = [
@@ -54,41 +55,36 @@ export default function Sidebar() {
         {/* Scrollable Menu */}
         <div className="flex-1 overflow-y-auto scrollbar-thin scrollbar-thumb-blue-500/50 scrollbar-track-transparent px-4 py-4">
           <ul className="space-y-1">
-            {menuItems.map((item, i) => (
-              <motion.li
-                key={i}
-                className={`flex items-center space-x-3 px-3 py-3 rounded-xl cursor-pointer transition-all relative group ${
-                  item.active
-                    ? "bg-blue-600/20 border border-blue-500/30 text-blue-200"
-                    : "hover:bg-blue-600/10 hover:border-blue-500/20 border border-transparent"
-                }`}
-                initial={{ x: -20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
-                whileHover={{ 
-                  scale: 1.02, 
-                  backgroundColor: "#2563eb20",
-                  x: item.active ? 0 : 5 
-                }}
-                whileTap={{ scale: 0.98 }}
-              >
-                <motion.div
-                  className="flex-shrink-0"
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 17 }}
+            {menuItems.map((item, i) => {
+              const location = useLocation();
+              const isActive = location.pathname === item.path;
+              return (
+                <motion.li
+                  key={i}
+                  whileHover={{ x: 5 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 20 }}
                 >
-                  {item.icon}
-                </motion.div>
-                <span className="font-medium">{item.label}</span>
-                {item.active && (
-                  <motion.div
-                    className="absolute right-3 w-1 h-6 bg-blue-400 rounded-full"
-                    layoutId="activeIndicator"
-                  />
-                )}
-                <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              </motion.li>
-            ))}
+                  <Link
+                    to={item.path}
+                    className={`flex items-center space-x-3 px-3 py-3 rounded-xl cursor-pointer transition-all relative group ${
+                      isActive
+                        ? "bg-blue-600/20 text-blue-400"
+                        : "text-gray-300 hover:bg-blue-500/10 hover:text-blue-400"
+                    }`}
+                  >
+                    <span className="text-lg">{item.icon}</span>
+                    <span className="text-sm font-medium">{item.label}</span>
+                    {isActive && (
+                      <motion.div
+                        className="absolute right-3 w-1 h-6 bg-blue-400 rounded-full"
+                        layoutId="activeIndicator"
+                      />
+                    )}
+                    <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </Link>
+                </motion.li>
+              );
+            })}
           </ul>
         </div>
       </div>
