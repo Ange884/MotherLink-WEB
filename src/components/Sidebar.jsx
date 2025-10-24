@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+<<<<<<< HEAD
 import {
   Home,
   Users,
@@ -11,9 +12,16 @@ import {
   UserCog,
   ArrowRight,
 } from "lucide-react";
+=======
+import { Home, Users, Bell, BarChart2, Settings, LogOut, ChevronDown, Activity,
+  CalendarCheck2,
+  UserCog, AlertTriangle } from "lucide-react";
+>>>>>>> origin/Nora
 import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const menuItems = [
+<<<<<<< HEAD
   { icon: <Home size={18} />, label: "Dashboard", active: true },
   { icon: <Users size={18} />, label: "User management" },
   { icon: <UserCog size={18} />, label: "CHW Management" },
@@ -22,6 +30,21 @@ const menuItems = [
   { icon: <Bell size={18} />, label: "Emergency & Alerts" },
   { icon: <BarChart2 size={18} />, label: "Data analytics" },
   { icon: <Settings size={18} />, label: "Settings" },
+=======
+  { icon: <Home size={18} />, label: "Dashboard", path: "/dashboard" },
+  { icon: <Users size={18} />, label: "User management", path: "/users" },
+  { icon: <UserCog size={18} />, label: "CHW Management", path: "/chw" },
+  { icon: <CalendarCheck2 size={18} />, label: "Appointments", path: "/appointments" },
+  { icon: <Activity size={18} />, label: "Ambulance Tracker", path: "/ambulance" },
+  { icon: <Bell size={18} />, label: "Emergency & Alerts", path: "/emergencies" },
+  { icon: <BarChart2 size={18} />, label: "Data analytics", path: "/analytics" },
+  { icon: <Settings size={18} />, label: "Settings", path: "/settings" },
+];
+
+const profileOptions = [
+  { icon: <Settings size={14} />, label: "Profile" },
+  { icon: <LogOut size={14} />, label: "Logout" },
+>>>>>>> origin/Nora
 ];
 
 export default function Sidebar() {
@@ -94,6 +117,7 @@ export default function Sidebar() {
         {/* --- Menu (Non-scrollable but flexible height) --- */}
         <div className="flex-1 px-4 py-4 overflow-hidden">
           <ul className="space-y-1">
+<<<<<<< HEAD
             {menuItems.map((item, i) => (
               <motion.li
                 key={i}
@@ -121,6 +145,38 @@ export default function Sidebar() {
                 )}
               </motion.li>
             ))}
+=======
+            {menuItems.map((item, i) => {
+              const location = useLocation();
+              const isActive = location.pathname === item.path;
+              return (
+                <motion.li
+                  key={i}
+                  whileHover={{ x: 5 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 20 }}
+                >
+                  <Link
+                    to={item.path}
+                    className={`flex items-center space-x-3 px-3 py-3 rounded-xl cursor-pointer transition-all relative group ${
+                      isActive
+                        ? "bg-blue-600/20 text-blue-400"
+                        : "text-gray-300 hover:bg-blue-500/10 hover:text-blue-400"
+                    }`}
+                  >
+                    <span className="text-lg">{item.icon}</span>
+                    <span className="text-sm font-medium">{item.label}</span>
+                    {isActive && (
+                      <motion.div
+                        className="absolute right-3 w-1 h-6 bg-blue-400 rounded-full"
+                        layoutId="activeIndicator"
+                      />
+                    )}
+                    <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </Link>
+                </motion.li>
+              );
+            })}
+>>>>>>> origin/Nora
           </ul>
         </div>
 

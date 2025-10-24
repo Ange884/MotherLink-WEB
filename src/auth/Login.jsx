@@ -1,6 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ setIsLoggedIn }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    // Simple frontend validation
+    if (!email || !password) {
+      setError("Please enter both email and password");
+      return;
+    }
+
+    // For demo purposes, accept any non-empty credentials
+    // In a real app, this would be an API call to your backend
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('user', JSON.stringify({ email, name: 'Demo User' }));
+    
+    // Update parent component state
+    setIsLoggedIn(true);
+    
+    // Redirect to dashboard
+    navigate('/dashboard');
+  };
   return (
     <div className="flex items-center justify-center bg-white from-blue-50 to-indigo-100 min-h-screen px-6 py-6 md:px-12 md:py-8">
       {/* Signup/Login Card */}
@@ -21,63 +47,73 @@ const Login = () => {
         <div className="w-full md:w-1/2 flex items-center justify-center p-6 md:p-8 bg-white animate-fade-in-right">
           <div className="w-full max-w-md">
             <h2 className="text-xl md:text-2xl font-bold mb-4 md:mb-6 bg-gradient-to-r from-[#0B2447] to-[#19376D] bg-clip-text text-transparent animate-slide-down">
-              Signup to Mother Link!
+              Login to Mother Link
             </h2>
 
-            <form className="space-y-4">
+            {error && (
+              <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                <span className="block sm:inline">{error}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleSubmit} className="space-y-4">
               <div className="animate-slide-up delay-100">
                 <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">
-                  Organization Name
+                  Email
                 </label>
                 <input
-                  type="text"
-                  placeholder="e.g., Nyabihu district hospital"
-                  className="w-full border border-gray-300 rounded-lg px-2 py-1 md:px-3 md:py-2 text-gray-400 lg:text-[14px] text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#0B2447] focus:border-transparent transition-all duration-300 hover:border-[#0B2447] hover:shadow-md"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter your email"
+                  className="w-full border border-gray-300 rounded-lg px-2 py-1 md:px-3 md:py-2 text-gray-700 lg:text-[14px] text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#0B2447] focus:border-transparent transition-all duration-300 hover:border-[#0B2447] hover:shadow-md"
                 />
               </div>
 
               <div className="animate-slide-up delay-200">
                 <label className="block text-xs md:text-sm font-medium text-gray-700 mb-1">
-                  Type of Facility
+                  Password
                 </label>
                 <input
-                  type="text"
-                  placeholder="e.g., Nyabihu district hospital"
-                  className="w-full border border-gray-300 rounded-lg px-2 py-1 md:px-3 md:py-2 text-gray-400 lg:text-[14px] text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#0B2447] focus:border-transparent transition-all duration-300 hover:border-[#0B2447] hover:shadow-md"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Enter your password"
+                  className="w-full border border-gray-300 rounded-lg px-2 py-1 md:px-3 md:py-2 text-gray-700 lg:text-[14px] text-sm md:text-base focus:outline-none focus:ring-2 focus:ring-[#0B2447] focus:border-transparent transition-all duration-300 hover:border-[#0B2447] hover:shadow-md"
                 />
               </div>
 
               <div className="flex items-center justify-between animate-slide-up delay-250 mt-2">
-  {/* Remember Me */}
-  <label htmlFor="remember" className="flex items-center text-xs md:text-sm text-gray-600">
-    <input
-      id="remember"
-      name="remember"
-      type="checkbox"
-      className="mr-2 w-4 h-4 md:w-5 md:h-5 accent-[#0B2447] border-gray-300 rounded transition-all duration-200 hover:scale-110"
-    />
-    Remember me
-  </label>
+                {/* Remember Me */}
+                <label htmlFor="remember" className="flex items-center text-xs md:text-sm text-gray-600">
+                  <input
+                    id="remember"
+                    name="remember"
+                    type="checkbox"
+                    className="mr-2 w-4 h-4 md:w-5 md:h-5 accent-[#0B2447] border-gray-300 rounded transition-all duration-200 hover:scale-110"
+                  />
+                  Remember me
+                </label>
 
-  {/* Forgot Password */}
-  <a href="#" className="text-xs md:text-sm text-[#0B2447] hover:underline">
-    Forgot Password?
-  </a>
-</div>
+                {/* Forgot Password */}
+                <a href="#" className="text-xs md:text-sm text-[#0B2447] hover:underline">
+                  Forgot Password?
+                </a>
+              </div>
 
               <button
                 type="submit"
                 className="w-full bg-gradient-to-r from-[#0B2447] to-[#19376D] text-white py-1.5 md:py-2 rounded-lg text-sm md:text-base hover:from-[#19376D] hover:to-[#0B2447] transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl animate-slide-up delay-300"
               >
-                Proceed
+                Login
               </button>
             </form>
 
-            <div className="mt-4 text-center text-xs md:text-sm animate-slide-up delay-400">
-              Already have an account?{" "}
-              <a href="#" className="text-[#0B2447] font-semibold hover:underline transition-all duration-200">
-                Login
-              </a>
+            {/* Demo credentials */}
+            <div className="mt-4 p-3 bg-blue-50 rounded-lg text-xs text-gray-600">
+              <p className="font-medium text-blue-800 mb-1">Demo Credentials:</p>
+              <p>Email: demo@motherlink.com</p>
+              <p>Password: any-password</p>
             </div>
           </div>
         </div>
