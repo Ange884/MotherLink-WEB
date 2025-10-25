@@ -1,36 +1,8 @@
 import { motion } from "framer-motion";
-<<<<<<< HEAD
-import {
-  Home,
-  Users,
-  Bell,
-  BarChart2,
-  Settings,
-  LogOut,
-  Ambulance,
-  CalendarCheck2,
-  UserCog,
-  ArrowRight,
-} from "lucide-react";
-=======
-import { Home, Users, Bell, BarChart2, Settings, LogOut, ChevronDown, Activity,
-  CalendarCheck2,
-  UserCog, AlertTriangle } from "lucide-react";
->>>>>>> origin/Nora
+import { Home, Users, Bell, BarChart2, Settings, LogOut, ChevronDown, Activity, CalendarCheck2, UserCog, AlertTriangle } from "lucide-react";
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-
 const menuItems = [
-<<<<<<< HEAD
-  { icon: <Home size={18} />, label: "Dashboard", active: true },
-  { icon: <Users size={18} />, label: "User management" },
-  { icon: <UserCog size={18} />, label: "CHW Management" },
-  { icon: <CalendarCheck2 size={18} />, label: "Appointments" },
-  { icon: <Ambulance size={18} />, label: "Ambulance Tracker" },
-  { icon: <Bell size={18} />, label: "Emergency & Alerts" },
-  { icon: <BarChart2 size={18} />, label: "Data analytics" },
-  { icon: <Settings size={18} />, label: "Settings" },
-=======
   { icon: <Home size={18} />, label: "Dashboard", path: "/dashboard" },
   { icon: <Users size={18} />, label: "User management", path: "/users" },
   { icon: <UserCog size={18} />, label: "CHW Management", path: "/chw" },
@@ -40,26 +12,22 @@ const menuItems = [
   { icon: <BarChart2 size={18} />, label: "Data analytics", path: "/analytics" },
   { icon: <Settings size={18} />, label: "Settings", path: "/settings" },
 ];
-
 const profileOptions = [
   { icon: <Settings size={14} />, label: "Profile" },
   { icon: <LogOut size={14} />, label: "Logout" },
->>>>>>> origin/Nora
 ];
-
 export default function Sidebar() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-
+  const location = useLocation();
   return (
     <motion.div
-      className="bg-gradient-to-b from-[#0B2447] to-[#1a365d] text-white w-64 h-screen flex flex-col shadow-2xl shadow-blue-900/20 relative"
+      className="bg-gradient-to-b from-[#0B2447] to-[#1A365D] text-white w-64 h-screen flex flex-col shadow-2xl shadow-blue-900/20 relative"
       initial={{ x: -300, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
       {/* Background subtle animation */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(59,130,246,0.08),transparent_50%)] animate-pulse-slow"></div>
-
       {/* --- Main content --- */}
       <div className="relative z-10 flex flex-col h-full">
         {/* --- Logo Section --- */}
@@ -76,7 +44,6 @@ export default function Sidebar() {
           />
           Mother Link
         </motion.div>
-
         {/* --- Profile Section --- */}
         <motion.div
           className="flex flex-col items-center text-center py-4 border-b border-gray-700/50 bg-[#0B2447]/80 backdrop-blur-sm relative cursor-pointer"
@@ -93,7 +60,6 @@ export default function Sidebar() {
           />
           <p className="text-sm font-semibold text-white">Welcome back</p>
           <p className="text-xs text-gray-400">Nziza Ange</p>
-
           {/* Profile Dropdown */}
           {isProfileOpen && (
             <motion.ul
@@ -102,52 +68,22 @@ export default function Sidebar() {
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.2 }}
             >
-              <li className="flex items-center space-x-3 px-4 py-2 text-sm hover:bg-gray-700/50 cursor-pointer transition-colors">
-                <Settings size={14} className="text-gray-400" />
-                <span>Profile</span>
-              </li>
-              <li className="flex items-center space-x-3 px-4 py-2 text-sm hover:bg-gray-700/50 cursor-pointer transition-colors">
-                <LogOut size={14} className="text-gray-400" />
-                <span>Logout</span>
-              </li>
+              {profileOptions.map((option, index) => (
+                <li
+                  key={index}
+                  className="flex items-center space-x-3 px-4 py-2 text-sm hover:bg-gray-700/50 cursor-pointer transition-colors"
+                >
+                  <span className="text-gray-400">{option.icon}</span>
+                  <span>{option.label}</span>
+                </li>
+              ))}
             </motion.ul>
           )}
         </motion.div>
-
         {/* --- Menu (Non-scrollable but flexible height) --- */}
-        <div className="flex-1 px-4 py-4 overflow-hidden">
+        <div className="flex-1 px-4 py-4 overflow-y-auto">
           <ul className="space-y-1">
-<<<<<<< HEAD
-            {menuItems.map((item, i) => (
-              <motion.li
-                key={i}
-                className={`flex items-center space-x-3 px-3 py-3 rounded-xl cursor-pointer transition-all relative group ${
-                  item.active
-                    ? "bg-blue-600/20 border border-blue-500/30 text-blue-200"
-                    : "hover:bg-blue-600/10 hover:border-blue-500/20 border border-transparent"
-                }`}
-                initial={{ x: -20, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 0.4, delay: 0.3 + i * 0.1 }}
-                whileHover={{
-                  scale: 1.02,
-                  backgroundColor: "#2563eb20",
-                  x: item.active ? 0 : 5,
-                }}
-              >
-                <div className="flex-shrink-0">{item.icon}</div>
-                <span className="font-medium">{item.label}</span>
-                {item.active && (
-                  <motion.div
-                    className="absolute right-3 w-1 h-6 bg-blue-400 rounded-full"
-                    layoutId="activeIndicator"
-                  />
-                )}
-              </motion.li>
-            ))}
-=======
             {menuItems.map((item, i) => {
-              const location = useLocation();
               const isActive = location.pathname === item.path;
               return (
                 <motion.li
@@ -176,11 +112,9 @@ export default function Sidebar() {
                 </motion.li>
               );
             })}
->>>>>>> origin/Nora
           </ul>
         </div>
-
-        {/* --- Logout Button (Now part of content flow) --- */}
+        {/* --- Logout Button --- */}
         <motion.div
           className="p-4 border-t border-gray-700/50 bg-[#0B2447]/80 backdrop-blur-sm flex items-center justify-between hover:bg-blue-600/10 transition-colors cursor-pointer"
           whileHover={{ x: 4 }}
@@ -190,7 +124,7 @@ export default function Sidebar() {
             <LogOut size={18} className="text-gray-300" />
             <span className="text-sm font-medium text-gray-200">Logout</span>
           </div>
-          <ArrowRight size={16} className="text-gray-400" />
+          <ChevronDown size={16} className="text-gray-400" />
         </motion.div>
       </div>
     </motion.div>
