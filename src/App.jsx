@@ -10,7 +10,7 @@ import Signup2 from "./auth/sign-in2";
 // import Dashboard3 from "./dashboards/dash3";
 import Login from "./auth/Login";
 import Dash2 from "./components/dash-content2"; // User management
-import CHWManagement from "./pages/CHWManagement";
+import CHWManagement from "./pages/CHWManagement"
 import Appointments from "./pages/Appointments";
 import AmbulanceTracker from "./pages/AmblulanceTracker";
 import EmergencyContent from "./pages/EmergencyContent";
