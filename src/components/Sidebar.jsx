@@ -118,7 +118,13 @@ export default function Sidebar() {
         {/* --- Logout Button --- */}
         <motion.div
           className="p-4 border-t border-gray-700/50 bg-[#0B2447]/80 backdrop-blur-sm flex items-center justify-between hover:bg-blue-600/10 transition-colors cursor-pointer"
-          whileHover={{ x: 4 }}
+          whileHover={{ 
+            y:1,
+          scale: 1.02, 
+          backgroundColor: "rgba(10, 25, 47, 0.4)" // dark blue glow
+}}
+transition={{ type: "spring", stiffness: 300, damping: 20 }}
+
           onClick={() => console.log("Logout clicked")}
         >
           <div className="flex items-center space-x-2">
