@@ -81,39 +81,40 @@ export default function Sidebar() {
           )}
         </motion.div>
         {/* --- Menu (Non-scrollable but flexible height) --- */}
-        <div className="flex-1 px-4 py-4 overflow-y-auto">
-          <ul className="space-y-1">
-            {menuItems.map((item, i) => {
-              const isActive = location.pathname === item.path;
-              return (
-                <motion.li
-                  key={i}
-                  whileHover={{ x: 5 }}
-                  transition={{ type: "spring", stiffness: 400, damping: 20 }}
-                >
-                  <Link
-                    to={item.path}
-                    className={`flex items-center space-x-3 px-3 py-3 rounded-xl cursor-pointer transition-all relative group ${
-                      isActive
-                        ? "bg-blue-600/20 text-blue-400"
-                        : "text-gray-300 hover:bg-blue-500/10 hover:text-blue-400"
-                    }`}
-                  >
-                    <span className="text-lg">{item.icon}</span>
-                    <span className="text-sm font-medium">{item.label}</span>
-                    {isActive && (
-                      <motion.div
-                        className="absolute right-3 w-1 h-6 bg-blue-400 rounded-full"
-                        layoutId="activeIndicator"
-                      />
-                    )}
-                    <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </Link>
-                </motion.li>
-              );
-            })}
-          </ul>
-        </div>
+        <div className="flex-1 px-4 py-4 overflow-y-auto overflow-x-hidden scrollbar-hide">
+  <ul className="space-y-1">
+    {menuItems.map((item, i) => {
+      const isActive = location.pathname === item.path;
+      return (
+        <motion.li
+          key={i}
+          whileHover={{ x: 5 }}
+          transition={{ type: "spring", stiffness: 400, damping: 20 }}
+        >
+          <Link
+            to={item.path}
+            className={`flex items-center space-x-3 px-3 py-3 rounded-xl cursor-pointer transition-all relative group ${
+              isActive
+                ? "bg-blue-600/20 text-blue-400"
+                : "text-gray-300 hover:bg-blue-500/10 hover:text-blue-400"
+            }`}
+          >
+            <span className="text-lg">{item.icon}</span>
+            <span className="text-sm font-medium">{item.label}</span>
+            {isActive && (
+              <motion.div
+                className="absolute right-3 w-1 h-6 bg-blue-400 rounded-full"
+                layoutId="activeIndicator"
+              />
+            )}
+            <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+          </Link>
+        </motion.li>
+      );
+    })}
+  </ul>
+</div>
+
         {/* --- Logout Button --- */}
         <motion.div
           className="p-4 border-t border-gray-700/50 bg-[#0B2447]/80 backdrop-blur-sm flex items-center justify-between hover:bg-blue-600/10 transition-colors cursor-pointer"
